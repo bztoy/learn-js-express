@@ -1,0 +1,46 @@
+# double back-ticks
+``
+
+Express is a fast web framework. Express is a server side or back-end framework.
+
+Middleware functions are functions that have access to the request and response object. Express has built in middleware but middleware
+also comes from 3rd party packages as well as custom middleware.
+
+- Execute any code
+- Make changes to the request/response objects
+- End response cycle
+- Call next middleware in the stack
+
+## Express app should be decared in main file 
+const app = express();
+
+## app.use() can be used for:
+- assign a middleware
+- assign a static folder
+- assign a router
+
+## fullstack with Template
+passport.js
+
+// GET -> return static contents
+app.get('/', (req, res) => {
+    // res.send('<h1>Hello world from Mars</h1>')
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// Get all riders
+app.get('/api/riders', (req, res) => {
+    res.json(riders);
+});
+
+// Get single riders
+app.get('/api/riders/:id', (req, res) => {
+    const rider_number = req.params.id;
+    const found = riders.some(rider => rider.number === parseInt(rider_number));
+    if (found) {
+        res.json(riders.filter(rider => rider.number === parseInt(rider_number)));
+    } else {
+        res.status(400).json({msg: `No rider number: ${rider_number}`});
+    }
+    
+});
